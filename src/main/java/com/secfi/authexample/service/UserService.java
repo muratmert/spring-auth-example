@@ -41,6 +41,22 @@ public class UserService {
         }
     }
 
+    public String update(AppUser appUser) {
+
+        AppUser user = userRepository.findByUsername(appUser.getUsername());
+        if (user == null) {
+            throw new CustomException("User does not exist in the system", HttpStatus.NOT_FOUND);
+        }
+
+        appUser.setLastName(appUser.getLastName());
+        appUser.setFirstName(appUser.getFirstName());
+        appUser.setUserRoles(appUser.getUserRoles());
+        appUser.setEmail(appUser.getEmail());
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        userRepository.save(appUser);
+        return jwtTokenProvider.createToken(appUser.getUsername(), appUser.getUserRoles());
+    }
+
     public void delete(String username) {
         userRepository.deleteByUsername(username);
     }
