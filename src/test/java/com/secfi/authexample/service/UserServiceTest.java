@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
